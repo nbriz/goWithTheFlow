@@ -10,7 +10,7 @@ function StartEnd( label, x, y ){
     this.content = label;
     this.fillColor = "#D496D0";
     this.hoverColor = "#FFB3FA"
-    this.clickedColor = "#00ff00";
+    this.clickedColor = "#FFB3FA";
     this.strokeColor = "#000000";
 
 
