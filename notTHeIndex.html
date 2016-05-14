@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title> visuaLogic </title>
+    <meta charset="utf-8">
+    <style>
+
+      canvas {
+        position:absolute;
+        top:0px;
+        left:0px;
+      }
+
+    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div id="header">
+      <h1>
+        VisuaLogic
+      </h1>
+      <h4>
+        A generative vidual logic worksheet and expression analyzer 
+      </h4>
+      <hr>
+    </div>
+    <table style="width:100%;">
+      <colgroup>
+        <col style="width: 50%" />
+        <col style="width: 50%" />
+      </colgroup>
+      <tr>
+        <td id="expTable">
+          <p>
+            First we set the variable
+          </p>
+          <h2 id="variable"/> 
+          <h3 id="expression">
+
+          </h3>
+          <button onclick="buildExpression()">Refresh Expression</button>
+          <br>
+          <!--button onclick="printFlowLogic()">Print Logic</button-->
+          <p id="logic">
+
+          </p>
+        </td>
+        <td>
+         <canvas></canvas>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: center">
+        <input type="range" id="difSlider" onchange="recalcDifficulty()">
+        </td>
+        <td>
+          <h2 id="difficult">
+            
+          </h2>
+        </td>
+      </tr>
+    </table>
+    
+    
+  </body>
+  <script src="script.js"></script>
+</html>
