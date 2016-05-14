@@ -1,5 +1,5 @@
 
-function StartEnd( label, x, y ){
+function Statement( output ){
     this._x = x;
     this._y = y;
     this.w = 100;
