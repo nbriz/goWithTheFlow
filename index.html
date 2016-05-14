@@ -14,8 +14,10 @@
 
 		</style>
 	</head>
-	<body>		
+	<body>	
+
 		
+		<script src="StartEnd.js"></script>
 		<script>
 
 			var W = window.innerWidth;
@@ -32,15 +34,44 @@
 			var ctx = canvas.getContext('2d');
 
 
+			var objects = [];
 
 
+			// var start = new StartEnd( "start", 200, 100 );
+			// **********************************************
+			function generateObjects(){
+				var o = new StartEnd( "start", 200, 100 );
+				objects.push( o );
+			}
+			generateObjects();
+			// *********************************************
+
+
+
+
+
+ 
 			// EVENTS -----------------------------------
 
 			// event fires on mouse click
-			function mouse( event ){
-				console.log( event.clientX, event.clientY );
+			function onMouseMove( e ){
+				ctx.clearRect(0,0,W,H);
+				for (var i = 0; i < objects.length; i++) {
+					objects[i].mouseOver( e.clientX, e.clientY );
+					objects[i].draw();
+				}
 			}
-			canvas.addEventListener( 'click', mouse );
+			canvas.addEventListener( 'mousemove', onMouseMove );
+
+
+			function onMouseClick( e ){
+				ctx.clearRect(0,0,W,H);
+				for (var i = 0; i < objects.length; i++) {
+					objects[i].mouseClick( e.clientX, e.clientY );
+					objects[i].draw();
+				}
+			}
+			canvas.addEventListener( 'click', onMouseClick );
 
 
 			// event fires on window resize
