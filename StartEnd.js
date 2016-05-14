@@ -1,28 +1,45 @@
-
 function StartEnd( label, x, y ){
-    // this._x = x;
-    // this._y = y;
-    this.x = x;
+
+	this.x = x;
     this.y = y;
     this.w = 100;
     this.h = 100;
+    this.PI = 13.142
     this.clicked = false;
     this.hover = false;
     this.content = label;
-    this.fillColor = "#cccc00";
-    this.hoverColor = "#ffff00"
-    this.clickedColor = "#00ff00";
+    this.fillColor = "#D496D0";
+    this.hoverColor = "#FFB3FA"
+    this.clickedColor = "#FFB3FA";
     this.strokeColor = "#000000";
 
-    this.inlet = { 
-    	x: this.x+this.w/2, 
-    	y: this.y 
-    };
 
-    this.outlet = { 
-    	x: this.x+this.w/2, 
-    	y: this.y + this.h 
-    };
+
+    // this._x = x;
+    // this._y = y;
+    // this.x = x;
+    // this.y = y;
+    // this.w = 100;
+    // this.h = 100;
+    // this.clicked = false;
+    // this.hover = false;
+    // this.content = label;
+    // this.fillColor = "#cccc00";
+    // this.hoverColor = "#ffff00"
+    // this.clickedColor = "#00ff00";
+    // this.strokeColor = "#000000";
+
+
+
+    // this.inlet = { 
+    // 	x: this.x+this.w/2, 
+    // 	y: this.y 
+    // };
+
+    // this.outlet = { 
+    // 	x: this.x+this.w/2, 
+    // 	y: this.y + this.h 
+    // };
 
     // draw node
     this.draw();
@@ -77,26 +94,26 @@ StartEnd.prototype.draw = function(){
 
     ctx.strokeStyle = this.strokeColor;
     ctx.beginPath();
-    ctx.rect( this.x, this.y, this.w, this.h );
-    ctx.closePath();
+    ctx.arc(this.x, this.y, 50, 0, this.PI * 2);
     ctx.fill();
     ctx.stroke();
+    ctx.closePath();
 
     ctx.fillStyle = "#000000";
     ctx.font = '20px Arial';
     ctx.textAlign = "center";
     ctx.textBaseline = 'middle';
-    var txty = this.y + this.h/2;
-    var txtx = this.x + this.w/2;
-    ctx.fillText( this.content, txtx, txty );
+    // var txty = this.y - this.h/2;
+    // var txtx = this.x - this.w/2;
+    ctx.fillText( this.content, this.x, this.y );
 
 };
 
 StartEnd.prototype.mouseOver = function( mx, my ){
 
 	if( 
-		mx > this.x && mx < this.x+this.w &&
-		my > this.y && my < this.y+this.h
+		mx > this.x - this.w / 2 && mx < this.x+this.w / 2 &&
+		my > this.y - this.h / 2 && my < this.y+this.h / 2
 	){
 		this.hover = true;
 	}
@@ -109,8 +126,8 @@ StartEnd.prototype.mouseOver = function( mx, my ){
 StartEnd.prototype.mouseClick = function( mx, my ){
 
 	if( 
-		mx > this.x && mx < this.x+this.w &&
-		my > this.y && my < this.y+this.h
+        mx > this.x - this.w / 2 && mx < this.x+this.w / 2 &&
+        my > this.y - this.h / 2 && my < this.y+this.h / 2
 	){
 		this.clicked = !this.clicked;
 	}
