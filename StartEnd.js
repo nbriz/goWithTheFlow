@@ -1,7 +1,9 @@
 
 function StartEnd( label, x, y ){
-    this._x = x;
-    this._y = y;
+    // this._x = x;
+    // this._y = y;
+    this.x = x;
+    this.y = y;
     this.w = 100;
     this.h = 100;
     this.clicked = false;
@@ -27,39 +29,39 @@ function StartEnd( label, x, y ){
 
 }
 
-Object.defineProperty( StartEnd.prototype, "x", {
-	get: function() {
-		return this._x;
-	},
-	set: function( val ) {
-		this._x = val;
-	    this.inlet = { 
-	    	x: val + this.w/2, 
-	    	y: this.y 
-	    };
-	    this.outlet = { 
-	    	x: val + this.w/2, 
-	    	y: this.y + this.h 
-	    };	
-	}
-});
+// Object.defineProperty( StartEnd.prototype, "x", {
+// 	get: function() {
+// 		return this._x;
+// 	},
+// 	set: function( val ) {
+// 		this._x = val;
+// 	    this.inlet = { 
+// 	    	x: val + this.w/2, 
+// 	    	y: this.y 
+// 	    };
+// 	    this.outlet = { 
+// 	    	x: val + this.w/2, 
+// 	    	y: this.y + this.h 
+// 	    };	
+// 	}
+// });
 
-Object.defineProperty( StartEnd.prototype, "y", {
-	get: function() {
-		return this._y;
-	},
-	set: function( val ) {
-		this._y = val;
-	    this.inlet = { 
-	    	x: this.x + this.w/2, 
-	    	y: val 
-	    };
-	    this.outlet = { 
-	    	x: this.x + this.w/2, 
-	    	y: val + this.h 
-	    };	
-	}
-});
+// Object.defineProperty( StartEnd.prototype, "y", {
+// 	get: function() {
+// 		return this._y;
+// 	},
+// 	set: function( val ) {
+// 		this._y = val;
+// 	    this.inlet = { 
+// 	    	x: this.x + this.w/2, 
+// 	    	y: val 
+// 	    };
+// 	    this.outlet = { 
+// 	    	x: this.x + this.w/2, 
+// 	    	y: val + this.h 
+// 	    };	
+// 	}
+// });
 
 StartEnd.prototype.draw = function(){
 
