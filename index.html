@@ -18,6 +18,10 @@
 
 		
 		<script src="StartEnd.js"></script>
+		<script src="Conditional.js"></script>		
+		<script src="Statement.js"></script>		
+		<script src="Line.js"></script>
+		<script src="example_data_structure.js"></script>	
 		<script>
 
 			var W = window.innerWidth;
@@ -28,34 +32,140 @@
 			canvas.width = W;
 			canvas.height = H;
 			document.body.appendChild( canvas );
-
-
 			// create drawing context ( either 2d or webgl, ie 3d )
 			var ctx = canvas.getContext('2d');
+
 
 
 			var objects = [];
 
 
-			// var start = new StartEnd( "start", 200, 100 );
-			// **********************************************
-			function generateObjects(){
-				var o = new StartEnd( "start", 200, 100 );
-				objects.push( o );
+			// ---------------------- GENERATE FLOW CHART 
+			// ------------------------------------------
+			/*
+			var X = 10;
+			var Y = 10;
+
+			function parseSubList( data ){
+
 			}
-			generateObjects();
-			// *********************************************
 
+			function generateObjects( data ){
+				for (var n = 0; n < data.length; n++) {
+					if( data[n].type == "VARIABLE" ){
+						if( n!=0 ) Y += 150;
+						var node = new StartEnd( "var x = "+data[n].value, X, Y );
+						objects.push( node );
+					} 
+					else if( data[n].type == "CONDITIONAL" ){
+						Y += 150;
+						var node = new StartEnd( "("+data[n].value+")", X, Y ); // conditional block
+						objects.push( node );
+						if( typeof data[n].inside == 'undefined' ){
+							// if false, ie right
+							X += 150;
+							var node = new StartEnd( 'terminate', X, Y ); // statement block
+							objects.push( node );							
+							// if true, ie down
+							X -= 150;
+							Y += 150;
+							var random = 'alert('+Math.floor(Math.random()*100)+')';
+							console.log( random )
+							var node = new StartEnd( random, X, Y ); // statement block
+							objects.push( node );
+							//
+							X += 150; Y -= 150;
+						} else {
+							// parseSubList( data[n].inside );
+						}
+					}
+					else {
+						if( n!=0 ) Y += 150;
+						var node = new StartEnd( data[n].type, X, Y );	
+						objects.push( node );
+					}
+				}
 
+				canvas.height = Y + 150;
+			}
 
+			generateObjects( nodes );
 
+			*/
+
+			var lines = [
+
+			]
+
+			var p = [
+				{x:100 , y:100, w:100,h:100 },
+				{x:100, y:250, w:100,h:100 },
+				{x:100, y:400, w:100,h:100 },
+				{x:100, y:550, w:100,h:100 },
+			]
+
+			var line = new Line( p[0], p[1] );
+			lines.push( line );
+			var line = new Line( p[1], p[2] );
+			lines.push( line );
+			var line = new Line( p[2], p[3] );
+			lines.push( line );
+
+			var line = new Line( p[1], {x:300, y:250, w:100,h:100 }  );
+			lines.push( line );
+			var line = new Line(  {x:300, y:250, w:100,h:100 }, {x:300, y:550, w:100,h:100 });
+			lines.push( line );
+			var line = new Line( {x:300, y:550, w:100,h:100 }, p[3] );
+			lines.push( line );
+
+			//
+
+			var node = new StartEnd( 'Start', p[0].x, p[0].y );	
+			objects.push( node );
+
+			var node = new Conditional( 'is 2<5', p[1].x, p[1].y );
+			objects.push( node );
+
+			var node = new Statement( 'hack', p[2].x, p[2].y );
+			objects.push( node );
+
+			var node = new StartEnd( 'End', p[3].x, p[3].y );
+			objects.push( node );
 
  
-			// EVENTS -----------------------------------
+
+			function nonElegantCheck(){
+				if( objects[1].clicked ) lines[0].color = "#00ff00";
+				else lines[0].color = "#000000";
+				if( objects[2].clicked ) lines[1].color = "#00ff00";
+				else lines[1].color = "#000000";
+				
+				if( objects[3].clicked && objects[2].clicked ) lines[2].color = "#00ff00";
+				else  lines[2].color = "#000000";
+
+				if( objects[0].clicked && objects[1].clicked && objects[3].clicked ){
+					lines[3].color = "#00ff00";
+					lines[4].color = "#00ff00";
+					lines[5].color = "#00ff00";
+				} else {
+					lines[3].color = "#000000";
+					lines[4].color = "#000000";
+					lines[5].color = "#000000";
+				}
+
+
+			}
+
+
+			// ----------------------------------- EVENTS 
+			// ------------------------------------------
 
 			// event fires on mouse click
 			function onMouseMove( e ){
 				ctx.clearRect(0,0,W,H);
+				for (var i = 0; i < lines.length; i++) {
+					lines[i].draw();
+				}				
 				for (var i = 0; i < objects.length; i++) {
 					objects[i].mouseOver( e.clientX, e.clientY );
 					objects[i].draw();
@@ -66,10 +176,16 @@
 
 			function onMouseClick( e ){
 				ctx.clearRect(0,0,W,H);
+				for (var i = 0; i < lines.length; i++) {
+					lines[i].draw();
+				}
 				for (var i = 0; i < objects.length; i++) {
 					objects[i].mouseClick( e.clientX, e.clientY );
 					objects[i].draw();
 				}
+
+				nonElegantCheck();
+
 			}
 			canvas.addEventListener( 'click', onMouseClick );
 
@@ -78,7 +194,6 @@
 			function onresize( event ){
 				canvas.width = W = window.innerWidth;
 				canvas.height = H = window.innerHeight;
-
 			}
 			window.addEventListener( 'resize', onresize );
 
